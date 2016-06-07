@@ -51,6 +51,30 @@ class UtilityTwigExtension extends TwigExtension {
   }
 
   /**
+   * Double check given value to be string.
+   * @param $value string Given parameter to check
+   * @return string
+   *   String value.
+   */
+  protected function forceString($value) {
+    // Value should be string value.
+    return (is_string($value)) ? $value : '';
+  }
+
+  /**
+   * Build template machine name based on template name.
+   * @param $template string Given template name.
+   * @return string
+   *   Template machine name
+   */
+  protected function buildMachineName($template) {
+    // Value should be string value.
+    $template = $this->forceString($template);
+    // Get template machine name.
+    return str_replace('-', '_', $template);
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getName() {
@@ -82,10 +106,8 @@ class UtilityTwigExtension extends TwigExtension {
    *   TRUE when template already exists, otherwise false.
    */
   public function onDisk($template) {
-    // Value should be string value.
-    $template = (is_string($template)) ? $template : '';
     // Get template machine name.
-    $key = str_replace('-', '_', $template);
+    $key = $this->buildMachineName($template);
     // Check if current template exists.
     return array_key_exists($key, $this->templates);
   }
@@ -99,10 +121,8 @@ class UtilityTwigExtension extends TwigExtension {
   public function templatePath($template){
     // Check that current template already exists.
     if($this->onDisk($template)) {
-      // Value should be string value.
-      $template = (is_string($template)) ? $template : '';
       // Get template machine name.
-      $key = str_replace('-', '_', $template);
+      $key = $this->buildMachineName($template);
       // Return path template.
       return base_path() . $this->templates[$key]['path'] . '/';
     }
