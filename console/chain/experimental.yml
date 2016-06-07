@@ -1,0 +1,7 @@
+commands:
+  - command: config:delete
+    options:
+        learning: true
+    arguments:
+        type: staging
+        name: all

@@ -1,0 +1,12 @@
+name: awesome
+type: theme
+description: My Awesome theme
+package: Other
+core: 8.x
+libraries:
+  - awesome/global-styling
+
+base theme: false
+
+regions:
+  content: Content

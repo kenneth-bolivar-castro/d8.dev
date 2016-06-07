@@ -1,0 +1,6 @@
+services:
+  utility.twig.extension:
+    class: Drupal\utility\TwigExtension\UtilityTwigExtension
+    arguments: ["@renderer", '@theme.manager', '@theme.registry']
+    tags:
+      - { name: twig.extension }
